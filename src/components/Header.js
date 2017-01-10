@@ -16,32 +16,33 @@ class HeaderComponent extends Component {
     this.login = this.login.bind(this);
     this.logout = this.logout.bind(this);
   }
-  
+
   componentWillMount() {
-    this.initAuth();  
+    this.initAuth();
   }
 
-  initAuth(){
+  initAuth() {
     let self = this;
-    self.props.lock.on("authenticated", function(authResult) {
-      self.props.lock.getUserInfo(authResult.accessToken, function(error, profile) {
-        if(error){
+    self.props.lock.on("authenticated", function (authResult) {
+      self.props.lock.getUserInfo(authResult.accessToken, function (error, profile) {
+        if (error) {
           alert(error);
           return;
         }
+        self.setState({ authenticated: true });
         AuthActions.logUserIn(profile, authResult.idToken);
-        self.setState({authenticated: true});
+        self.context.router.push('/home');
       });
     });
   }
 
-  login() {    
+  login() {
     this.props.lock.show();
   }
 
   logout() {
     AuthActions.logUserOut();
-    this.setState({authenticated: false});
+    this.setState({ authenticated: false });
     this.context.router.push('/');
   }
 
@@ -54,11 +55,11 @@ class HeaderComponent extends Component {
           </Navbar.Brand>
         </Navbar.Header>
         <Nav>
-          { !this.state.authenticated ? (
+          {!this.state.authenticated ? (
             <NavItem onClick={this.login}>Login</NavItem>
           ) : (
-            <NavItem onClick={this.logout}>Logout</NavItem>
-          )}
+              <NavItem onClick={this.logout}>Logout</NavItem>
+            )}
         </Nav>
       </Navbar>
     );
