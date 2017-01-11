@@ -53,7 +53,7 @@ const BitlyStore = new BitlyStoreClass();
 // Here we register a callback for the dispatcher
 // and look for our various action types so we can
 // respond appropriately
-ContactStore.dispatchToken = AppDispatcher.register(action => {
+BitlyStore.dispatchToken = AppDispatcher.register(action => {
     switch (action.actionType) {
         case BitlyConstants.BITLY_INFO:
             setInfo(action.info);
@@ -61,7 +61,15 @@ ContactStore.dispatchToken = AppDispatcher.register(action => {
             break
         case BitlyConstants.BITLY_INFO_ERROR:
             alert(action.message);
-            ContactStore.emitChange();
+            BitlyStore.emitChange();
+            break
+        case BitlyConstants.BITLY_SHORTEN:
+            setLink(action.link);
+            BitlyStore.emitChange();
+            break
+        case BitlyConstants.BITLY_SHORTEN_ERROR:
+            alert(action.message);
+            BitlyStore.emitChange();
             break
 
         default:

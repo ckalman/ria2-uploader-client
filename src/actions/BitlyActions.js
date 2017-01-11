@@ -18,5 +18,20 @@ export default {
                 message: message
             })
         })
+    },
+    short: (longUrl) => {
+        BitlyAPI
+        .short('http://localhost:3001/api/v1/bitly/shorten', longUrl)
+        .then(shortLink =>{
+            AppDispatcher.dispatch({
+                actionType: BitlyConstants.BITLY_SHORTEN,
+                link: shortLink
+            })
+        }).catch(message => {
+            AppDispatcher.dispatch({
+                actionType: BitlyConstants.BITLY_SHORTEN_ERROR,
+                message: message
+            })
+        })
     }
 }
