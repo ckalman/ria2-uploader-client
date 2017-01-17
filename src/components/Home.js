@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import AuthStore from '../stores/AuthStore';
 import BitlyActions from '../actions/BitlyActions';
 import BityStore from '../stores/BitlyStore';
-import { Form, Button, FormGroup, FormControl, ControlLabel } from 'react-bootstrap'
+import Bitly from './url/Bitly';
+import { Form, Button, FormGroup, FormControl, ControlLabel} from 'react-bootstrap'
 
 class HomeComponent extends React.Component {
 
@@ -39,15 +40,16 @@ class HomeComponent extends React.Component {
         this.setState({
             link: BityStore.getLink()
         });
-  }
-  
+    }
+
     render() {
         return (
             <div>
                 <h2>Welcome : {this.state.profile.nickname}</h2>
                 <div>
                     <p> Shortcut your url : </p>
-                    <input type="text" name="longUrl" placeholder="http://google.ch" onChange={this.handleEmailChange} />
+                    <input type="url" name="longUrl" placeholder="http://google.ch" onChange={this.handleEmailChange} />
+                    <Bitly urls={[this.state.link]}></Bitly>
                     <p>{this.state.link.url}</p>
                     <Button onClick={this.handleShortCutSubmit} disabled={this.state.shortcutDisabled}>
                         shortcut this url
