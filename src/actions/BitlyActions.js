@@ -1,12 +1,13 @@
 import AppDispatcher from '../dispatcher/AppDispatcher';
 import BitlyConstants from '../constants/BitlyConstants';
 import BitlyAPI from '../utils/BitlyAPI';
+import config from 'config';
 
 export default {
 
     getInfo: (id) => {
         BitlyAPI
-        .getInfo('http://localhost:3001/api/v1/bitly/info/' + id)
+        .getInfo(`${config.BASE_URL}/bitly/info/${id}`)
         .then(linkInfo =>{
             AppDispatcher.dispatch({
                 actionType: BitlyConstants.BITLY_INFO,
@@ -21,13 +22,14 @@ export default {
     },
     short: (longUrl) => {
         BitlyAPI
-        .short('http://localhost:3001/api/v1/bitly/shorten', longUrl)
+        .short(`${config.BASE_URL}/bitly/shorten`, longUrl)
         .then(shortLink =>{
             AppDispatcher.dispatch({
                 actionType: BitlyConstants.BITLY_SHORTEN,
                 link: shortLink
             })
         }).catch(message => {
+            console.log(message);
             AppDispatcher.dispatch({
                 actionType: BitlyConstants.BITLY_SHORTEN_ERROR,
                 message: message

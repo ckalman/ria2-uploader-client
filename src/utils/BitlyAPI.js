@@ -9,7 +9,9 @@ export default {
                 .get(shortUrl)
                 .set('Authorization', 'Bearer ' + AuthStore.getJwt())
                 .end((err, response) => {
-                    if (err) reject(err);
+                     if(response.status != 200){
+                        reject(response.body.message);
+                    }
                     resolve(JSON.parse(response.text));
                 })
         });
@@ -21,7 +23,9 @@ export default {
                 .send({long_url: longUrl})
                 .set('Authorization', 'Bearer ' + AuthStore.getJwt())
                 .end((err, response) => {
-                    if (err) reject(err);
+                    if(response.status != 200){
+                        reject(response.body.message);
+                    }
                     resolve(JSON.parse(response.text));
                 })
         });

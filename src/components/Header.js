@@ -54,13 +54,16 @@ class HeaderComponent extends Component {
             <a href="/">My Uploaders</a>
           </Navbar.Brand>
         </Navbar.Header>
-        <Nav>
-          {!this.state.authenticated ? (
+        {!this.state.authenticated ? (
+          <Nav>
             <NavItem onClick={this.login}>Login</NavItem>
-          ) : (
+          </Nav>
+        ) : (
+            <Nav>
+              <NavItem href="/home">Home</NavItem>
               <NavItem onClick={this.logout}>Logout</NavItem>
-            )}
-        </Nav>
+            </Nav>
+          )}
       </Navbar>
     );
   }

@@ -12,7 +12,7 @@ class HomeComponent extends React.Component {
             profile: AuthStore.getUser(),
             longUrl: '',
             shortcutDisabled: false,
-            link: ''
+            link: {}
         }
         this.onChange = this.onChange.bind(this);
         this.handleEmailChange = this.handleEmailChange.bind(this);
@@ -48,7 +48,7 @@ class HomeComponent extends React.Component {
                 <div>
                     <p> Shortcut your url : </p>
                     <input type="text" name="longUrl" placeholder="http://google.ch" onChange={this.handleEmailChange} />
-                    <p>{this.state.link}</p>
+                    <p>{this.state.link.url}</p>
                     <Button onClick={this.handleShortCutSubmit} disabled={this.state.shortcutDisabled}>
                         shortcut this url
                             </Button>

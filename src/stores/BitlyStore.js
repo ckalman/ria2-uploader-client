@@ -13,6 +13,7 @@ function setLinks(links) {
 }
 
 function setLink(link) {
+    console.log("Link data : ", link);
     _link = link;
 }
 
