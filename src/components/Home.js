@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import AuthStore from '../stores/AuthStore';
 import BitlyActions from '../actions/BitlyActions';
+import UploadActions from '../actions/UploadActions';
+import UploadStore from '../stores/UploadStore';
 import BityStore from '../stores/BitlyStore';
 import Bitly from './url/Bitly';
 import Dropzone from 'react-dropzone';
@@ -22,10 +24,12 @@ class HomeComponent extends React.Component {
     }
     componentWillMount() {
         BityStore.addChangeListener(this.onChange);
+        UploadStore.addChangeListener(this.onChange);
     }
 
     componentWillUnmount() {
         BityStore.removeChangeListener(this.onChange);
+        UploadStore.removeChangeListener(this.onChange);
     }
 
     handleEmailChange(e) {
@@ -39,6 +43,8 @@ class HomeComponent extends React.Component {
     }
 
     onDrop(acceptedFiles, rejectedFiles) {
+        UploadActions.upload(acceptedFiles[0]);
+
         console.log('Accepted files: ', acceptedFiles);
         console.log('Rejected files: ', rejectedFiles);
     }
