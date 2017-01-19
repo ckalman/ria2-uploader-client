@@ -66,6 +66,7 @@ BitlyStore.dispatchToken = AppDispatcher.register(action => {
             break
         case BitlyConstants.BITLY_SHORTEN:
             setLink(action.link);
+            alert('Your url has been shortcut');
             BitlyStore.emitChange();
             break
         case BitlyConstants.BITLY_SHORTEN_ERROR:

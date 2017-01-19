@@ -5,9 +5,9 @@ import config from 'config';
 
 export default {
 
-    getInfo: (id) => {
+    getInfo: (url) => {
         BitlyAPI
-        .getInfo(`${config.BASE_URL}/bitly/info/${id}`)
+        .getInfo(`${config.BASE_URL}/bitly/info/${url}`)
         .then(linkInfo =>{
             AppDispatcher.dispatch({
                 actionType: BitlyConstants.BITLY_INFO,
@@ -36,4 +36,5 @@ export default {
             })
         })
     }
+
 }

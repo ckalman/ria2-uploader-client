@@ -9,25 +9,40 @@ export default {
                 .get(shortUrl)
                 .set('Authorization', 'Bearer ' + AuthStore.getJwt())
                 .end((err, response) => {
-                     if(response.status != 200){
+                    if (response.status != 200) {
                         reject(response.body.message);
                     }
                     resolve(JSON.parse(response.text));
                 })
         });
     },
-    short: (apiUrl, longUrl) =>{
+    short: (apiUrl, longUrl) => {
         return new Promise((resolve, reject) => {
             request
                 .post(apiUrl)
-                .send({long_url: longUrl})
+                .send({ long_url: longUrl })
                 .set('Authorization', 'Bearer ' + AuthStore.getJwt())
                 .end((err, response) => {
-                    if(response.status != 200){
+                    if (response.status != 200) {
                         reject(response.body.message);
                     }
                     resolve(JSON.parse(response.text));
                 })
         });
+    },
+    all: (apiUrl) => {
+        return new Promise((resolve, reject) => {
+            request
+                .get(apiUrl)
+                .set('Authorization', 'Bearer ' + AuthStore.getJwt())
+                .end((err, response) => {
+                    if (response.status != 200) {
+                        reject(response.body.message);
+                    }
+                    console.log("bitly all : ", response);
+                    resolve(response);
+                })
+        })
+
     }
 }
