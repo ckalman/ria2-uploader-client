@@ -16,7 +16,8 @@ class HomeComponent extends React.Component {
             profile: AuthStore.getUser(),
             longUrl: '',
             shortcutDisabled: false,
-            link: {}
+            link: {},
+            file: {}
         }
         this.onChange = this.onChange.bind(this);
         this.handleEmailChange = this.handleEmailChange.bind(this);
@@ -44,14 +45,12 @@ class HomeComponent extends React.Component {
 
     onDrop(acceptedFiles, rejectedFiles) {
         UploadActions.upload(acceptedFiles[0]);
-
-        console.log('Accepted files: ', acceptedFiles);
-        console.log('Rejected files: ', rejectedFiles);
     }
 
     onChange() {
         this.setState({
-            link: BityStore.getLink()
+            link: BityStore.getLink(),
+            file: UploadStore.getFile(),
         });
     }
 
@@ -81,9 +80,17 @@ class HomeComponent extends React.Component {
                             )}
                     </Panel>
                     <Panel header="Upload photos">
-                        <Dropzone onDrop={this.onDrop}>
-                            <div>Try dropping some files here, or click to select files to upload.</div>
+                        <Dropzone className="upload-box" onDrop={this.onDrop}>
+                            <div>Try dropping some image here, or click to select files to upload... And please wait for the upload (~2-7 sec) perf. issues</div>
                         </Dropzone>
+                        {this.state.file.url != null ? (
+                            <div>
+                                <hr></hr>
+                                <Bitly urls={[this.state.file]}></Bitly>
+                            </div>
+                        ) : (
+                                <div></div>
+                            )}
                     </Panel>
 
                 </div>

@@ -61,6 +61,8 @@ class HeaderComponent extends Component {
         ) : (
             <Nav>
               <NavItem href="/home">Home</NavItem>
+              <NavItem href="/myUploads">My Uploads</NavItem>
+              <NavItem href="/myLinks">My Links</NavItem>
               <NavItem onClick={this.logout}>Logout</NavItem>
             </Nav>
           )}

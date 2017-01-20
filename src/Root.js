@@ -18,6 +18,8 @@ class Root extends Component {
         <Route path='/' component={App}>
           <IndexRoute component={Index}/>
           <Route path='/home' component={Home} />
+          <Route path='/myUploads' component={Home} />
+          <Route path='/myLinks' component={Home} />
           {/*<Route path='/contact/:id' component={ContactDetail} />*/}
         </Route>
       </Router>

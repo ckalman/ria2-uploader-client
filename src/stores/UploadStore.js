@@ -38,7 +38,9 @@ const UploadStore = new UploadStoreClass();
 UploadStore.dispatchToken = AppDispatcher.register(action => {
     switch (action.actionType) {
         case UploadConstants.UPLOAD_FILE:
+            console.log("file data : ", action.file);
             setFile(action.file);
+            alert('File upload successfully');
             UploadStore.emitChange();
             break
         case UploadConstants.UPLOAD_FILE_ERROR:
