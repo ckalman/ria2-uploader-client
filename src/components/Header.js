@@ -37,13 +37,15 @@ class HeaderComponent extends Component {
   }
 
   login() {
+    this.context.router.push('/');    
     this.props.lock.show();
   }
 
   logout() {
-    AuthActions.logUserOut();
-    this.setState({ authenticated: false });
     this.context.router.push('/');
+    this.setState({ authenticated: false });
+    AuthActions.logUserOut();
+    window.location.reload();
   }
 
   render() {

@@ -73,6 +73,14 @@ BitlyStore.dispatchToken = AppDispatcher.register(action => {
             alert(action.message);
             BitlyStore.emitChange();
             break
+        case BitlyConstants.BITLY_LIST:
+            setLinks(action.files);
+            BitlyStore.emitChange();
+            break
+        case BitlyConstants.BITLY_LIST_ERROR:
+            alert(action.message);
+            BitlyStore.emitChange();
+            break
 
         default:
     }

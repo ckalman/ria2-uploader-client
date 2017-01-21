@@ -5,9 +5,14 @@ import { EventEmitter } from 'events';
 const CHANGE_EVENT = 'change';
 
 let _file = {};
+let _files = [];
 
-function setFile(file){
+function setFile(file) {
     _file = file;
+}
+
+function setFiles(files) {
+    _files = files;
 }
 
 class UploadStoreClass extends EventEmitter {
@@ -24,8 +29,12 @@ class UploadStoreClass extends EventEmitter {
         this.removeListener(CHANGE_EVENT, callback)
     }
 
-    getFile(){
+    getFile() {
         return _file;
+    }
+
+    getFiles() {
+        return _files;
     }
 
 }
@@ -38,7 +47,6 @@ const UploadStore = new UploadStoreClass();
 UploadStore.dispatchToken = AppDispatcher.register(action => {
     switch (action.actionType) {
         case UploadConstants.UPLOAD_FILE:
-            console.log("file data : ", action.file);
             setFile(action.file);
             alert('File upload successfully');
             UploadStore.emitChange();
@@ -47,7 +55,23 @@ UploadStore.dispatchToken = AppDispatcher.register(action => {
             alert(action.message);
             UploadStore.emitChange();
             break
-
+        case UploadConstants.FILES:
+            setFiles(action.files);
+            UploadStore.emitChange();
+            break
+        case UploadConstants.FILES_ERROR:
+            alert(action.message);
+            UploadStore.emitChange();
+            break
+        case UploadConstants.FILES_REMOVE:
+        console.log("remove file : ", action.files);
+            setFiles(action.files);
+            UploadStore.emitChange();
+            break
+        case UploadConstants.FILES_REMOVE_ERROR:
+            alert(action.message);
+            UploadStore.emitChange();
+            break
         default:
     }
 

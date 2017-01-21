@@ -5,6 +5,8 @@ export default keyMirror({
   BITLY_SHORTEN: null,
   BITLY_NUMBER_OF_CLICK: null,
   BITLY_COUNTRIES: null,
+  BITLY_LIST: null,
+  BITLY_LIST_ERROR: null,
   
   BITLY_INFO_ERROR: null,
   BITLY_SHORTEN_ERROR: null,

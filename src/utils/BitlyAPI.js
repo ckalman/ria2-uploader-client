@@ -30,19 +30,22 @@ export default {
                 })
         });
     },
-    all: (apiUrl) => {
+    getAll: (apiUrl) => {
         return new Promise((resolve, reject) => {
             request
                 .get(apiUrl)
                 .set('Authorization', 'Bearer ' + AuthStore.getJwt())
                 .end((err, response) => {
-                    if (response.status != 200) {
+                    if (err) {
+                        console.error("Get all bitly : ", err);
                         reject(response.body.message);
                     }
-                    console.log("bitly all : ", response);
-                    resolve(response);
-                })
-        })
-
+                    if (response != undefined) {
+                        resolve(response.body);
+                    } else {
+                        reject("Can't get all your bitly links please retry or check the logs");
+                    }
+                });
+        });
     }
 }

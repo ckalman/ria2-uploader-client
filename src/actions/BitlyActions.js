@@ -7,7 +7,7 @@ export default {
 
     getInfo: (url) => {
         BitlyAPI
-        .getInfo(`${config.BASE_URL}/bitly/info/${url}`)
+        .getInfo(`${config.BASE_URL}/bitly/info?url=${url}`)
         .then(linkInfo =>{
             AppDispatcher.dispatch({
                 actionType: BitlyConstants.BITLY_INFO,
@@ -35,6 +35,22 @@ export default {
                 message: message
             })
         })
+    },
+    getAll: () =>{
+        BitlyAPI
+            .getAll(`${config.BASE_URL}/bitly`).then(result =>{
+            AppDispatcher.dispatch({
+                    actionType: BitlyConstants.BITLY_LIST,
+                    files: result
+                });
+            }).catch(error =>{
+                console.error(error);
+                AppDispatcher.dispatch({
+                    actionType: BitlyConstants.BITLY_LIST_ERROR,
+                    message: error
+                });
+            });
     }
+   
 
 }

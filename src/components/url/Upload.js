@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import BitlyActions from '../../actions/BitlyActions';
 import BitlyStore from '../../stores/BitlyStore';
+import UploadActions from '../../actions/UploadActions';
 import CopyToClipboard from 'react-copy-to-clipboard';
 import { Table, Panel } from 'react-bootstrap'
 
@@ -25,9 +26,13 @@ class BitlyComponent extends Component {
 
     handleClick(url) {
         BitlyActions.getInfo(url);
-            this.state.search_url=url;
-        
+        this.state.search_url = url;
     }
+
+    handleRemoveClick(uuid){
+        UploadActions.remove(uuid);
+    }
+
 
     onChange() {
         console.log("info : ", BitlyStore.getInfo());
@@ -44,24 +49,24 @@ class BitlyComponent extends Component {
                         <p> Number of clicks {this.state.info.link_clicks} </p>
                         <br></br>
                         <Table responsive>
-                        <thead>
-                        <tr>
-                            <th>Countries</th>
-                            <th>Number of clicks</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {this.state.info.countries.map(function (country, index) {
-                            return (
-                                <tr key={index}>
-                                    <td>{country.country}</td>
-                                    <td>{country.clicks}</td>                                
+                            <thead>
+                                <tr>
+                                    <th>Countries</th>
+                                    <th>Number of clicks</th>
                                 </tr>
-                            );
-                        })}
+                            </thead>
+                            <tbody>
+                                {this.state.info.countries.map(function (country, index) {
+                                    return (
+                                        <tr key={index}>
+                                            <td>{country.country}</td>
+                                            <td>{country.clicks}</td>
+                                        </tr>
+                                    );
+                                })}
 
-                    </tbody>
-                    </Table>
+                            </tbody>
+                        </Table>
                     </Panel>
                 ) : (
                         <div></div>
@@ -73,6 +78,7 @@ class BitlyComponent extends Component {
                             <th>Tiny url</th>
                             <th>Copy</th>
                             <th>Info</th>
+                            <th>Remove</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -87,6 +93,7 @@ class BitlyComponent extends Component {
                                         </CopyToClipboard>
                                     </td>
                                     <td><button onClick={() => this.handleClick(url.url)}>INFO</button></td>
+                                    <td><button onClick={() => this.handleRemoveClick(url.info.uuid)}>Remove</button></td>
                                 </tr>
                             );
                         }.bind(this))}

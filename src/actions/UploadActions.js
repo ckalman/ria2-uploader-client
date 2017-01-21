@@ -6,16 +6,46 @@ import config from 'config';
 export default {
     upload: (file) => {
         UploadAPI
-            .upload(`${config.BASE_URL}/upload`, file).then(result => {
+            .upload(`${config.BASE_URL}/uploads`, file).then(result => {
                 AppDispatcher.dispatch({
                     actionType: UploadConstants.UPLOAD_FILE,
-                    file: result.body
+                    file: result
                 });
-            }).catch(error =>{
+            }).catch(error => {
                 AppDispatcher.dispatch({
                     actionType: UploadConstants.UPLOAD_FILE_ERROR,
                     message: error
                 });
             });
+    },
+    getAll: () => {
+        UploadAPI
+            .getAll(`${config.BASE_URL}/uploads`).then(result => {
+                AppDispatcher.dispatch({
+                    actionType: UploadConstants.FILES,
+                    files: result
+                });
+            }).catch(error => {
+                console.error(error);
+                AppDispatcher.dispatch({
+                    actionType: UploadConstants.FILES_ERROR,
+                    message: error
+                });
+            });
+    },
+    remove: (uuid) => {
+        UploadAPI
+            .remove(`${config.BASE_URL}/uploads/${uuid}`).then(result => {
+                AppDispatcher.dispatch({
+                    actionType: UploadConstants.FILES_REMOVE,
+                    files: result
+                });
+            }).catch(error => {
+                AppDispatcher.dispatch({
+                    actionType: UploadConstants.FILES_REMOVE_ERROR,
+                    message: error
+                });
+            });
     }
+
 }

@@ -26,11 +26,13 @@ class HomeComponent extends React.Component {
     componentWillMount() {
         BityStore.addChangeListener(this.onChange);
         UploadStore.addChangeListener(this.onChange);
+        AuthStore.addChangeListener(this.onChange);
     }
 
     componentWillUnmount() {
         BityStore.removeChangeListener(this.onChange);
         UploadStore.removeChangeListener(this.onChange);
+        AuthStore.addChangeListener(this.onChange);
     }
 
     handleEmailChange(e) {
@@ -51,13 +53,18 @@ class HomeComponent extends React.Component {
         this.setState({
             link: BityStore.getLink(),
             file: UploadStore.getFile(),
+            profile: AuthStore.getUser(),
         });
     }
 
     render() {
         return (
             <div>
-                <h3 className="center" >Welcome : {this.state.profile.nickname}</h3>
+                {this.state.profile != null ? (
+                    <h3 className="center" >Welcome : {this.state.profile.nickname}</h3>
+                ) : (
+                        <div></div>
+                    )}
                 <div>
                     <Panel header="Shortcut your url">
                         <Form className="center" inline onSubmit={this.handleShortCutSubmit}>
@@ -81,7 +88,7 @@ class HomeComponent extends React.Component {
                     </Panel>
                     <Panel header="Upload photos">
                         <Dropzone className="upload-box" onDrop={this.onDrop}>
-                            <div>Try dropping some image here, or click to select files to upload... And please wait for the upload (~2-7 sec) perf. issues</div>
+                            <div>Try dropping some image here, or click to select files to upload... And please wait for the upload (~1-4 sec). You will receive an alert when it's done.</div>
                         </Dropzone>
                         {this.state.file.url != null ? (
                             <div>

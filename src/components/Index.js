@@ -7,6 +7,10 @@ class IndexComponent extends Component {
   constructor() {
     super();
   }
+
+  onEnter(){
+    window.location.reload();
+  }
   render() {
     return (
       <div>

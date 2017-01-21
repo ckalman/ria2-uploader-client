@@ -15,8 +15,7 @@ export default {
                     }
                     if(response != undefined){
                         if(response.status == 200){
-                            console.log(response);
-                            resolve(response);
+                            resolve(response.body);
                         }else{
                             console.error("uploader : ", response);
                             reject(response.body.message);
@@ -26,5 +25,41 @@ export default {
                     }
                 });
         });
+    },
+    getAll: (apiUrl) => {
+        return new Promise((resolve, reject) =>{
+            request
+                .get(apiUrl)
+                .set('Authorization', 'Bearer ' + AuthStore.getJwt())
+                .end((err, response) => {
+                    if(err){
+                        console.error("Get all upload : ", err);
+                        reject(response.body.message);
+                    }
+                    if(response != undefined){
+                        resolve(response.body);  
+                    }else{
+                        reject("Can't get all your uploads please retry or check the logs");
+                    }
+                });
+        });
+    },
+    remove: (apiUrl) =>{
+        return new Promise((resolve, reject) =>{
+            request
+                .delete(apiUrl)
+                .set('Authorization', 'Bearer ' + AuthStore.getJwt())
+                .end((err, response) => {
+                    if(err){
+                        console.error("Remove upload : ", err);
+                        reject(response.body.message);
+                    }
+                    if(response != undefined){
+                        resolve(response.body);  
+                    }else{
+                        reject("Can't remove your upload !");
+                    }
+                });
+        })
     }
 }
