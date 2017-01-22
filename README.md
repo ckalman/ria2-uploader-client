@@ -25,10 +25,11 @@ npm start
 The app will be served at `localhost:8000`.
 
 ## Fichiers
-- src/utils : contient tous les appels aux api
-- src/components/App.js : Vue principale, instancie Auth0Lock afin d’effectuer l'authentification.
-- src/components : contient toutes les vues
-- src/components/Header : Contient la logique afin de login logout l'utilisateur.
+
+-   src/utils : contient tous les appels aux api
+-   src/components/App.js : Vue principale, instancie Auth0Lock afin d’effectuer l'authentification.
+-   src/components : contient toutes les vues
+-   src/components/Header : Contient la logique afin de login logout l'utilisateur.
 
 ## Documentations
 
@@ -36,7 +37,7 @@ Pour plus d'information veulliez lire le readme du web service.
 
 Cette application utilise reactjs + flux :
 
-
+[flux-architecture](https://scotch.io/tutorials/getting-to-know-flux-the-react-js-architecture)
 
 ## License
 
