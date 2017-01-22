@@ -6,7 +6,7 @@ import config from 'config';
 export default {
     upload: (file) => {
         UploadAPI
-            .upload(`${config.BASE_URL}/uploads`, file).then(result => {
+            .upload(`${config.BASE_URL}/files`, file).then(result => {
                 AppDispatcher.dispatch({
                     actionType: UploadConstants.UPLOAD_FILE,
                     file: result
@@ -20,7 +20,7 @@ export default {
     },
     getAll: () => {
         UploadAPI
-            .getAll(`${config.BASE_URL}/uploads`).then(result => {
+            .getAll(`${config.BASE_URL}/files`).then(result => {
                 AppDispatcher.dispatch({
                     actionType: UploadConstants.FILES,
                     files: result
@@ -35,7 +35,7 @@ export default {
     },
     remove: (uuid) => {
         UploadAPI
-            .remove(`${config.BASE_URL}/uploads/${uuid}`).then(result => {
+            .remove(`${config.BASE_URL}/files/${uuid}`).then(result => {
                 AppDispatcher.dispatch({
                     actionType: UploadConstants.FILES_REMOVE,
                     files: result
